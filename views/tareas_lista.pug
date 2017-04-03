@@ -1,0 +1,33 @@
+extends layout
+
+block content
+	h1= title
+
+	each tarea, i in tareas
+		.container
+			.row
+				.col-md-12
+					.h3 #{tarea.nombre}
+				.col-md-10
+					if tarea.porcentaje<100
+						.progress
+							.progress-bar.progress-bar-striped(role='progressbar', aria-valuenow=tarea.porcentaje, aria-valuemin='0', aria-valuemax='100', style='width:'+tarea.porcentaje+'%')
+								strong #{tarea.porcentaje}%
+					else
+						.progress
+							.progress-bar.progress-bar-success(role='progressbar', aria-valuenow=tarea.porcentaje, aria-valuemin='0', aria-valuemax='100', style='width:'+tarea.porcentaje+'%')
+								strong #{tarea.porcentaje}%
+				.col-md-2
+					span
+						button.btn.btn-sm.btn-default(type='button') Actualizar
+					span
+						button.btn.btn-sm.btn-danger(type='button') Eliminar
+				.col-md-12
+					.list-inline
+						each tag in tarea.etiquetas
+							li
+								span.label.label-primary #{tag}
+
+		hr
+
+	button.btn.btn-md.btn-success(type='button' onclick="window.location='/tareas/new'") Nueva Tarea
